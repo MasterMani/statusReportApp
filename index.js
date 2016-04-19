@@ -1,13 +1,17 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    routes = require('./routes').routes,
-    api = require('./api').api,
+    routes = require('./routes/routes').routes,
+    api = require('./routes/api').api,
     port = 8080,
     ipAddr = '127.0.0.1';
 
 //TODO -- config reader and node port and ip ENV Variables
-app.use(bodyParser());
+
+//Configer body parser - http://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 app.set('views', './ejs');
 app.set('view engine', 'ejs')
 
@@ -21,3 +25,5 @@ app.post('/api/id/:id', api.updateOne);
 app.listen(port, ipAddr, function(){
   console.log("App is listening on " + ipAddr + ":" + port);
 })
+
+//Postman Link - https://www.getpostman.com/collections/a2ab5c733d65e977a558
