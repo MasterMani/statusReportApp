@@ -7,35 +7,54 @@
     </head>
 	<body>
     <div class="container">
-        <h1> Update your Status </h1>
-        <form role="form" class="form-horizontal" method="post" action="/api/id/6" >
+        <h1> Adding a new task </h1>
+<!--        "id, jiraId, siteName, assigenedDate, taskType, noOfSites, cstatus, history",-->
+        <form role="form" class="form-horizontal" method="post" action="/api/insert" >
             <div class="form-group">
                 <label class="control-label col-sm-2" for="jiraId">Jira Id</label>
                 <div class="col-sm-6">
-                    <input id="jiraId" class="form-control" type="text">
+                    <input id="jiraId" name="jiraId" class="form-control" type="text">
                 </div>    
             </div>
             <div class="form-group">
-                <label for="site" class="control-label col-sm-2">Site Name</label>
+                <label for="siteName" class="control-label col-sm-2">Site Name</label>
                 <div class="col-sm-6">
-                    <input id="site" class="form-control" type="text">
+                    <input id="siteName" name="siteName" class="form-control" type="text">
                 </div>    
             </div>
             <div class="form-group">
-                <label for="date" class="control-label col-sm-2">Date</label>
+                <label for="assigenedDate" class="control-label col-sm-2">Date</label>
                 <div class="col-sm-6">
-                    <input id="date" class="form-control" type="text">
+                    <input id="assigenedDate" name="assigenedDate" class="form-control" type="text">
+                </div>    
+            </div>
+            <div class="form-group">
+                <label for="taskType" class="control-label col-sm-2">Task Type</label>
+                <div class="col-sm-6">
+                    <input id="taskType" name="taskType" class="form-control" type="text">
+                </div>    
+            </div>
+            <div class="form-group">
+                <label for="noOfSites" class="control-label col-sm-2">No of Sites</label>
+                <div class="col-sm-6">
+                    <input id="noOfSites" name="noOfSites" class="form-control" type="text">
                 </div>    
             </div>
             <div class="form-group">
                 <label for="cstatus" class="control-label col-sm-2">Current Status</label>
                 <div class="col-sm-6">
-                    <input id="cstatus" class="form-control" type="text">
+                    <input id="cstatus" name="cstatus" class="form-control" type="text">
+                </div>    
+            </div>
+            <div class="form-group">
+                <label for="history" class="control-label col-sm-2">Comments</label>
+                <div class="col-sm-6">
+                    <input id="history" name="history" class="form-control" type="text">
                 </div>    
             </div>
             <div class="form-group">        
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default" onsubmit="hello()">Submit</button>
                 </div>
             </div>
         </form>
@@ -43,4 +62,9 @@
 	</body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+    function hello(){
+        console.log("Hello")
+    }
+  </script>
 </html>

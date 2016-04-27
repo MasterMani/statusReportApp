@@ -20,7 +20,9 @@ app.get('/', routes.home)
 //Rest full api's
 app.get('/api/all', api.all);
 app.get('/api/id/:id', api.getOne);
+//TODO - write a middleware to handle res.body
 app.post('/api/id/:id', api.updateOne);
+app.post('/api/add', api.insertOne);
 
 app.listen(port, ipAddr, function(){
   console.log("App is listening on " + ipAddr + ":" + port);
