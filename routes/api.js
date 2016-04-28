@@ -2,7 +2,7 @@ var api = {},
     statusDb = require('../lib/dbfunctions').StatusDb,
     dbName = "testdb.db",
     tableName = 'schemaTest',
-    columns = "id, jiraId, siteName, assigenedDate, taskType, noOfSites, cstatus, history",
+    columns = "id, jiraId, 'siteName', assigenedDate, taskType, noOfSites, status, history",
     db = new statusDb(dbName);
 
 //Result format : var data = {error : 0,records : [], errorMsg : ""};
@@ -23,23 +23,30 @@ api.all = function(req, res){
   });
 }
 api.insertOne = function(req, res){
-  var values = req.body,
+  var values = [null],
       data = {};
-      console.log(req.body);
-  // db.serialize(function(){
-  //   db.insert(tableName, columns, values, function(err){
-  //     if(err){
-  //       data.error = 1;
-  //       data.errorMsg = err;
-  //       //TODO logging errors and don't show it users
-  //       res.json(data);
-  //     }
-  //     data.error = 0;
-  //     data.errorMsg = "";
-  //     data.records = ["Inserted sucessfully"];
-  //     res.json(data)
-  //   });
-  // });
+   for(var key in req.body){
+      // values.push('"'+req.body[key] + '"')
+      if(key == 'noOfSites'){values.push(req.body[key])}
+      else{values.push('"'+req.body[key] + '"')}
+   }
+   console.log(values)
+  db.serialize(function(){
+    db.insert(tableName, columns, null+values+"", function(err){
+      if(err){
+        data.error = 1;
+        data.errorMsg = err;
+        //TODO logging errors and don't show it users
+        res.statusCode = 404
+        res.json(data);
+      }
+      data.error = 0;
+      data.errorMsg = "";
+      data.records = ["Inserted sucessfully"];
+      res.statusCode = 200
+      res.json(data)
+    });
+  });
 }
 api.getOne = function(req, res){
   var data = {}, 
