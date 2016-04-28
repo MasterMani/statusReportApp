@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    fs = require('fs'),
     routes = require('./routes/routes').routes,
     api = require('./routes/api').api,
     port = 8080,
@@ -12,8 +13,16 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.set('views', './ejs');
-app.set('view engine', 'ejs')
+//Creating a html view engine - http://expressjs.com/en/advanced/developing-template-engines.html
+app.engine('html', function(filePath, options, callback){
+  fs.readFile(filePath, function(err, content){
+    if(err) return callback(new Error(err));
+    return callback(null, content.toString());
+  });
+});
+
+app.set('views', './html');
+app.set('view engine', 'html')
 
 app.get('/', routes.home)
 
